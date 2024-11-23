@@ -1,0 +1,41 @@
+{
+  "name": "zen-mart-server",
+  "version": "1.0.0",
+  "description": "zen-mart-server is the backend repository for the ZenMart e-commerce platform.",
+  "main": "index.js",
+  "scripts": {
+    "dev": "tsnd --respawn ./src/server.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/devhasanmia/zen-mart-server.git"
+  },
+  "keywords": [
+    "ZenMart",
+    "ZenMart-Server",
+    "MD",
+    "HASAN",
+    "MIA"
+  ],
+  "author": "MD HASAN MIA",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/devhasanmia/zen-mart-server/issues"
+  },
+  "homepage": "https://github.com/devhasanmia/zen-mart-server#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.21.1",
+    "express-rate-limit": "^7.4.1",
+    "mongoose": "^8.8.2"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.17",
+    "@types/express": "^5.0.0",
+    "@types/morgan": "^1.9.9",
+    "morgan": "^1.10.0",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^5.7.2"
+  }
+}
