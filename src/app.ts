@@ -6,6 +6,7 @@ import rateLimit from "express-rate-limit";
 import router from "./routes";
 import notFound from "./middlewares/notFound";
 import { globalError } from "./middlewares/globalError";
+import multer from "multer";
 const app: Application = express();
 
 // Rate Limiting Configuration
