@@ -1,11 +1,11 @@
 // Package Imports
-import express, { Application, Request, Response } from "express";
+import express, { Application, NextFunction, Request, Response } from "express";
 import cors from "cors";
 import morgan from "morgan";
 import rateLimit from "express-rate-limit";
 import router from "./routes";
-import { globalError } from "./middlewares/globalError";
 import notFound from "./middlewares/notFound";
+import { globalError } from "./middlewares/globalError";
 const app: Application = express();
 
 // Rate Limiting Configuration
@@ -30,7 +30,13 @@ app.get("/", (req: Request, res: Response) => {
 });
 app.use("/api/v1/", router);
 // Error Handling Middleware
-app.use(globalError);
+app.use(((err, req, res, next) => globalError(err, req, res, next)) as (
+  err: any,
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => void);
+
 // Not Found Middleware
 app.use(notFound);
 
