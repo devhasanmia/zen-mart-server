@@ -2,7 +2,6 @@ import { RequestHandler } from "express";
 import { ProductService } from "./product.service";
 import { ProductValidation } from "./product.validation";
 
-
 const addNewProduct: RequestHandler = async (req, res, next) => {
     try {
         const image = req.files;
@@ -23,6 +22,21 @@ const addNewProduct: RequestHandler = async (req, res, next) => {
     }
 }
 
+const getAllProducts: RequestHandler = async (req, res, next) => {
+    try {
+        const products = await ProductService.getAllProducts();
+        res.json({
+            success: true,
+            message: "All products retrieved successfully",
+            data: products,
+        });
+    } catch (error) {
+        next(error);
+    }
+}
+
+
 export const ProductController = {
     addNewProduct,
+    getAllProducts
 }

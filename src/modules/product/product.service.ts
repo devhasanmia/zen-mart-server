@@ -7,7 +7,6 @@ type Image = {
 
 const createProduct = async (payload: any, image: any) => {
     try {
-  
         payload.SKU = generateSKU();
         const signle = image.image[0].path;
         const multipleI = image.images?.map((image: Image) => image.path) || [];
@@ -23,9 +22,21 @@ const createProduct = async (payload: any, image: any) => {
     }
 }
 
+const getAllProducts = async () => {
+    try {
+        const products = await Product.find({}).sort({ createdAt: -1 });
+        if (products.length === 0) {
+            throw new Error("No products found");
+        }
+        return products;
+    } catch (error) {
+        throw error;
+    }
+}
 
 export const ProductService = {
     createProduct,
+    getAllProducts,
 }
 
 
