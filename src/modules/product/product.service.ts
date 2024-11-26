@@ -10,7 +10,9 @@ type Image = {
 }
 
 const createProduct = async (payload: TProduct, image: any) => {
+    const session = await mongoose.startSession();
     try {
+        session.startTransaction();
         payload.SKU = generateSKU();
         const signle = image.image[0].path;
         const multipleI = image.images?.map((image: Image) => image.path) || [];
@@ -19,12 +21,20 @@ const createProduct = async (payload: TProduct, image: any) => {
         const images = uploadResult.slice(1).map((img: any) => img.secure_url);
         payload.image = uploadResult[0].secure_url;
         payload.images = images;
-        const product = await Product.create(payload);
+        const product = await Product.create([payload], { session });
+        await session.commitTransaction();
+        session.endSession();
         return product;
     } catch (error) {
+        if (session?.inTransaction()) {
+            await session.abortTransaction();
+        }
+        session.endSession();
         throw error;
     }
 }
+
+
 
 const getAllProducts = async () => {
     try {

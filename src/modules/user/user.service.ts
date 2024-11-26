@@ -1,5 +1,6 @@
 import config from "../../config";
 import AppError from '../../errors/AppError';
+import { sendEmail } from "../../utils/sendEmail";
 import User from "./user.model";
 import { TUser } from "./user.type"
 import bcrypt from "bcryptjs";
@@ -30,6 +31,7 @@ const login = async (email: string, password: string) => {
         }
         const token = jwt.sign({ id: user._id }, config.JWT_SECRET as string, { expiresIn: "12h" });
         const data = await User.findOne({ email: user.email }).select("-password");
+        await sendEmail()
         return {
             data,
             token,

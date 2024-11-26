@@ -1,6 +1,4 @@
 import { z } from "zod";
-
-
 const productValidation = z.object(
     {
         name: z.string({
@@ -33,7 +31,8 @@ const productValidation = z.object(
         })).optional(),
         status: z.enum(["active", "inactive", "out-of-stock", "discontinued"], {
             invalid_type_error: "Status must be 'active', 'inactive', 'out-of-stock', or 'discontinued'",
-        }),
+            required_error: "Status is required",
+        }).default("active"),
         brand: z.string({
             invalid_type_error: "Brand must be a valid string",
             required_error: "Brand is required",

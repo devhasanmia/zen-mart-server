@@ -23,7 +23,7 @@ const userSchema = new Schema<TUser>({
     accountStatus: {
         type: String,
         enum: ["active", "inactive", "blocked"],
-        default: "active",
+        default: "inactive",
     },
     address: {
         type: String,
@@ -37,6 +37,7 @@ const userSchema = new Schema<TUser>({
 
 userSchema.pre("save", async function (next) {
     this.role = "user";
+    this.accountStatus = "inactive";
     next();
 });
 
